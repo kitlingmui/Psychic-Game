@@ -38,18 +38,19 @@ display()
 // When the user presses a key
 document.onkeyup = function(event) {     
     // Determine which key was pressed, make it lowercase, and set it to the userInput variable.
-    var userInput = event.key.toLowerCase()
-    userInputlist.push(userInput);
+    var userInput = '' 
+    if (guessLeftCnt > 0) {
+        userInput = event.key.toLowerCase()
+        userInputlist.push(userInput);
+    }
 
     // If they guess the correct letter, increase and update counters
-    if (userInput === randomLtr && guessLeftCnt > 0 ) 
-    {
-        audioElement.play();
+    if (userInput === randomLtr) 
+    {   
         winCnt++
         guessLeftCnt = 5
         randomLtr = getrandomLetter()
         resetArray(userInputlist)
-       
     }
     // If wrong, check if any Guess Left Count and update counters
     else 
@@ -60,8 +61,9 @@ document.onkeyup = function(event) {
             loseCnt++
             guessLeftCnt = 5
             resetArray(userInputlist)
-            randomLtr = getrandomLetter()              
+            randomLtr = getrandomLetter()                       
         }
     }   
-    display()
+    display() 
+   
 }
